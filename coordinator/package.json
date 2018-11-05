@@ -1,0 +1,22 @@
+{
+  "name": "communicator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "linq": "^3.1.0",
+    "uuid": "^3.3.2",
+    "ws": "^6.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
+}

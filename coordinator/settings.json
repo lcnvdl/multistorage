@@ -1,0 +1,10 @@
+{
+    "node": {
+        "uuid": "test",
+        "alias": "Test"
+    },
+    "nodes": {
+        "refresh": 30,
+        "ttl": 120
+    }
+}
