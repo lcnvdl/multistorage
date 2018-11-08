@@ -60,7 +60,7 @@ class NodeMap {
             let awaiter = new Awaiter();
             awaiter.join(this.allNodes.map(n => n.list(directory))).then(r => {
                 //  r is FileInfoResponse
-                let result = Enumerable.from(r).selectMany(r => r).distinct(r => r.path + "." + r.fragment).toArray();
+                let result = Enumerable.from(r).selectMany(r => r).distinct(r => r.realCompletePath).toArray();
                 resolve(result);
             });
         });
@@ -73,11 +73,11 @@ class NodeMap {
     }
 
     mkdir(directory) {
-        throw new Error("Not implemented");
+        return this.__prepareAndAct(directory, (n, d) => n.prepareMkdir(d), (n, d) => n.mkdir(d));
     }
 
     rmdir(directory) {
-        throw new Error("Not implemented");
+        return this.__prepareAndAct(directory, (n, d) => n.prepareRmdir(d), (n, d) => n.rmDir(d));
     }
 
     onReceive(data) {
@@ -106,6 +106,25 @@ class NodeMap {
         }
 
         node.updateStatus(status, this.nodeTTL);
+    }
+
+    __prepareAndAct(argument, prepare, act) {
+        let p = new Promise((resolve, reject) => {
+            let awaiter = new Awaiter();
+            awaiter.join(this.allNodes.map(n => prepare(n, argument))).then(responses => {
+                if(responses.some(r => !r.success)) {
+                    reject(responses.find(r => !r.success));
+                }
+                else {
+                    let subAwaiter = new Awaiter();
+                    subAwaiter.join(this.allNodes.map(n => act(n, argument))).then(results => {
+                        resolve(results);
+                    });
+                }
+            });
+        });
+
+        return p;
     }
 
     /**
