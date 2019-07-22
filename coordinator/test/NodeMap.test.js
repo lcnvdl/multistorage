@@ -67,7 +67,7 @@ describe("NodeMap", () => {
 
   describe("#list", () => {
     it("should merge same path of files", done => {
-      let data = [{ path: "/f1" }, { path: "/f2" }, { path: "/f1" }];
+      let data = [{ path: "/f1", realCompletePath: "/f1" }, { path: "/f2", realCompletePath: "/f2" }, { path: "/f1", realCompletePath: "/f1" }];
       let promise = new Promise(resolve => {
         setTimeout(() => resolve(data), 1);
       });
@@ -88,4 +88,5 @@ describe("NodeMap", () => {
       });
     });
   });
+  
 });

@@ -63,6 +63,30 @@ class Node {
         throw new Error("Not implemented");
     }
 
+    prepareMkdir(directory) {
+        throw new Error("Not implemented");
+    }
+
+    mkdir(directory) {
+        throw new Error("Not implemented");
+    }
+
+    prepareRmdir(directory) {
+        throw new Error("Not implemented");
+    }
+
+    rmdir(directory) {
+        throw new Error("Not implemented");
+    }
+
+    prepareUnlink(file) {
+        throw new Error("Not implemented");
+    }
+
+    unlink(file) {
+        throw new Error("Not implemented");
+    }
+
     die() {
         this.status = NodeStatus.Offline;
     }

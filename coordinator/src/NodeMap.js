@@ -69,7 +69,7 @@ class NodeMap {
     }
 
     unlink(file) {
-        throw new Error("Not implemented");
+        return this.__prepareAndAct(file, (n, f) => n.prepareUnlink(f), (n, f) => n.unlink(f));
     }
 
     mkdir(directory) {
@@ -77,7 +77,7 @@ class NodeMap {
     }
 
     rmdir(directory) {
-        return this.__prepareAndAct(directory, (n, d) => n.prepareRmdir(d), (n, d) => n.rmDir(d));
+        return this.__prepareAndAct(directory, (n, d) => n.prepareRmdir(d), (n, d) => n.rmdir(d));
     }
 
     onReceive(data) {
